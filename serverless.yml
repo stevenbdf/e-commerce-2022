@@ -1,0 +1,46 @@
+service: e-commerce-2022
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  lambdaHashingVersion: 20201221
+  region: us-east-2
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - ssm:DescribeParameters
+            - ssm:GetParameter
+            - ssm:GetParameters
+            - ssm:GetParametersByPath
+            - ssm:PutParameter
+            - kms:Decrypt
+          Resource: "*"
+        - Effect: Allow
+          Action:
+            - dynamodb:Query
+            - dynamodb:Scan
+            - dynamodb:GetItem
+            - dynamodb:PutItem
+            - dynamodb:UpdateItem
+            - dynamodb:DeleteItem
+            - dynamodb:BatchWriteItem
+          Resource: "arn:aws:dynamodb:us-east-2:905251342705:table/e-commerce-2022-users"
+  environment:
+    NODE_ENV: ${opt:stage, 'development'}
+    BCRYPT_SALT: 10
+    JWT_PRIVATE_KEY: ${ssm:e-commerce-2022-jwt-private-key}
+
+functions:
+  app:
+      handler: handler.handler 
+      events: 
+        - http:
+            method: ANY   
+            path: /{proxy+}
+
+plugins:
+  - serverless-offline
+  - serverless-express

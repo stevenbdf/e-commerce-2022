@@ -1,0 +1,22 @@
+{
+  "name": "e-commerce-2022",
+  "version": "1.0.0",
+  "repository": "https://github.com/stevenbdf/e-commerce-2022",
+  "author": "stevenbdf",
+  "license": "MIT",
+  "scripts": {
+    "serve": "AWS_PROFILE=personal sls offline --aws-profile=personal",
+    "deploy": "AWS_PROFILE=personal sls deploy --aws-profile=personal --force --verbose --stage production"
+  },
+  "devDependencies": {
+    "aws-sdk": "^2.1049.0",
+    "serverless-offline": "^8.3.1"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "express-validator": "^6.14.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "serverless-express": "^2.0.12"
+  }
+}
