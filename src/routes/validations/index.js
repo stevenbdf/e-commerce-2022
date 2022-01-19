@@ -10,7 +10,7 @@ const validate = validations => {
     }
 
     res.status(422).json({
-      errors: errors.array()
+      error: errors.array()
     });
   };
 };
